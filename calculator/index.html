@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+   
+    <style>
+        body{
+            margin: auto;
+        }
+        section{
+            width: fit-content;
+            margin: auto;
+        }
+
+        small{
+            top: 513.5px;
+            position: relative;
+            left: 160px;
+            font-size: 8px;
+        }
+        small a{
+            font-size: medium;
+        } 
+        .CASEO{
+            position: relative;
+            top: 32px;
+            left: -2px;
+            font-family: monospace;
+            font-weight: 700;
+            font-style: oblique;
+            font-size: large;
+        }
+        .button{
+            background-color: cornsilk;
+            box-shadow: 1px 1px 0px black;
+            font-size: large;
+            font-family: 'orbitron',sans-serif;
+            padding: 5px;
+            border-radius: 5px;
+
+        }
+        .num{
+            background-color: #fde585;
+        }
+        button:hover{
+            box-shadow: 2px 2px 3px black;
+            transition-duration: 0.2s;
+        }
+        .button-cont{
+            width: fit-content;
+            border: 2px  solid red; 
+            display: grid;
+            column-gap: 5px;
+            row-gap: 5px;
+            grid-template-columns: repeat(4,auto);
+            justify-content: center;
+            margin: auto;
+            padding: 20px;
+            background: linear-gradient(45deg,#3d83b8,#418b9eeb);
+            border: 4px ridge #494949;
+            border-radius: 12px;
+            box-shadow: inset 3px 0px 10px #565656cf;
+            padding-top: 34px;
+        }
+
+        .button{
+            height: 60px;  
+            font-size: large;
+            padding: 5px;
+        }
+
+        input{
+            font-family: 'Orbitron',sans-serif;
+            font-size: large;
+            cursor: context-menu;
+            border: 2px ridge black; 
+            font-weight: 600;
+            border-radius: 4px;
+            background: linear-gradient(151deg,#f8f8f8,#d8d8d8);
+            height: 36px
+        }
+        input:focus{
+            outline: none;
+        }
+    </style>
+
+
+</head>
+<body>
+    <section>
+        <small>MADE WITH 💖 BY <a href="#">Shubham</a></small>
+        <small class="CASEO">C.A.S.E.O</small>
+
+        <div class="button-cont">
+            <input type="text" style="grid-area: 1 / 1 /span 1/span 4;padding: 5%;" readonly>
+            
+            <button class="button" id="">(</button>
+            <button class="button" id="">)</button>
+            <button class="button" id="">%</button>
+            <button class="button" id="">del</button>
+            <button class="button" id="">+</button>
+            <button class="button" id="">-</button>
+            <button class="button" id="">/</button>
+            <button class="button" id="">X</button>
+            <button class="button num" id="">1</button>
+            <button class="button num" id="">2</button>
+            <button class="button num" id="">3</button>
+            <button class="button" style="grid-column:4/span 1; " id="clear">C</button>
+            <button class="button num" id="">4</button>
+            <button class="button num" id="">5</button>
+            <button class="button num" id="">6</button>
+            <button class="button" style="padding-right:10px;" id="">&#8730</button>
+            <button class="button num" id="">7</button>
+            <button class="button num" id="">8</button>
+            <button class="button num" id="">9</button>
+            <button class="button" id="">ANS</button>
+            <button class="button" style="font-weight: bolder;" id="">.</button>
+            <button class="button num" id="">0</button>
+            <button class="button" style="grid-column:3/ span 2;" id="">=</button>
+        </div>
+    </section>
+
+    <script>
+        let string = "";
+        let ANS;
+        let a = document.querySelectorAll(".button");
+        let c = Array.from(a);
+        c.forEach((elem)=>{
+                elem.addEventListener("click",function(){
+                    document.querySelector("input").style.textAlign = "start";
+                if (elem.innerHTML === "ANS"){
+                    console.log("SSs")
+                    document.querySelector("input").value = ANS;
+                    string = ANS;
+                }
+                else if (elem.innerHTML === "del"){
+                    string = string.slice(0,(string.length -1));
+                    document.querySelector("input").value = string;
+                }
+                else if(elem.innerHTML === "C"){
+                     string = "";
+                     document.querySelector("input").value = string;
+                }
+                else if(elem.innerHTML === "="){
+                    string = string.replace("X","*")
+                    if(string == ""){
+                        document.querySelector("input").value = "Error";
+
+                    }
+                    else{
+                        try{
+
+                            let calculation = eval(string);
+                            document.querySelector("input").value = calculation;
+                            document.querySelector("input").style.textAlign = "end";
+                            string = ""
+                            ANS = calculation;
+                        }
+                        catch{
+                            document.querySelector("input").value = "Error";
+                        }
+                    }
+                }
+                else if(["+","-","/","*","X","%","(",")"].includes(elem.innerHTML)){
+                    string += " " + elem.innerHTML + " ";
+                    
+                    document.querySelector("input").value = string;
+                }
+                else{
+                    console.log(elem.innerHTML)
+                    string += elem.innerHTML + "";
+                    document.querySelector("input").value = string;
+                }
+                });
+            })
+            
+            </script>
+
+
+</body>
+</html>
